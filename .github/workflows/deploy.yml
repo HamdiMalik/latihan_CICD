@@ -1,0 +1,49 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # ==========================================
+  # 1. CI BACKEND (Pengujian Python Flask)
+  # ==========================================
+  ci-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install Dependencies & Test Tools
+        run: |
+          pip install -r backend/requirements.txt
+          pip install pytest flake8
+          
+      - name: Jalankan Unit Test Backend
+        run: pytest backend/tests/
+
+  # ==========================================
+  # 2. CI FRONTEND (Pengujian HTML/JS)
+  # ==========================================
+  ci-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install Dependencies Frontend
+        run: npm install --prefix frontend/tests/
+        
+      - name: Jalankan Unit Test Frontend
+        run: npm test --prefix frontend/tests/
