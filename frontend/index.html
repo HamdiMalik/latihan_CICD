@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Frontend Terpisah</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        .card { background: white; border: 1px solid #ddd; padding: 30px; border-radius: 8px; display: inline-block; }
+        button { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        #result { color: #007bff; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Frontend (Nginx)</h2>
+        <button onclick="fetchData()">Panggil Backend API</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function fetchData() {
+            document.getElementById('result').innerText = "Memuat...";
+            // Memanggil API backend yang berjalan di port 5000
+            fetch('http://localhost:5000/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.message + " (Versi: " + data.version + ")";
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = "Gagal menghubungi backend!";
+                    document.getElementById('result').style.color = "red";
+                });
+        }
+    </script>
+</body>
+</html>

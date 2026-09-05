@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend-api:
+    build: ./backend
+    ports:
+      - "5000:5000"
+
+  frontend-web:
+    build: ./frontend
+    ports:
+      - "8080:80" # Akses frontend di localhost:8080 (diarahkan ke port 80 di dalam kontainer Nginx)
+    depends_on:
+      - backend-api # Memastikan backend berjalan lebih dulu sebelum frontend
