@@ -7,7 +7,7 @@ CORS(app) # Mengizinkan akses dari frontend (CORS)
 @app.route('/api/status')
 def status():
     return jsonify({
-        "status": "success_gagalsih",
+        "status": "success",
         "message": "Halo! Backend (Flask) dan Frontend (Nginx) berhasil terhubung secara terpisah.",
         "version": "2.0"
     })
